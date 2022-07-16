@@ -1,8 +1,8 @@
 ## Welcome to LTZ 's pages
 
-### 一、插入排序
+### 作业一
 
-
+[插入排序](
 
 You can use the [editor on GitHub](https://github.com/Jerry2500/Jerry2500.github-io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
 
