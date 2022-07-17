@@ -1,8 +1,39 @@
 ## Welcome to LTZ 's pages
 
-### 作业一
+### 插入排序
 
-[插入排序](
+```
+#include<iostream>
+using namespace std;
+void insertion_sort(int arr[], int len)
+{
+    int i,j,key;
+    for (i=1;i<len;i++)
+	{
+        key = arr[i];
+        j=i-1;
+        while((j>=0) && (arr[j]>key)) 
+		{
+            arr[j+1] = arr[j];
+            j--;
+        }
+        arr[j+1] = key;
+    }
+}
+int main()
+{
+	int arr[2000]={0};
+	int len=0;
+	cin>>len;//输入数组长度
+	for(int i=0;i<len;i++)
+	cin>>arr[i];
+    insertion_sort(arr, len);
+    for(int i = 0; i < len; i++)
+    cout<<arr[i]<<" ";
+    return 0;
+}
+```
+
 
 You can use the [editor on GitHub](https://github.com/Jerry2500/Jerry2500.github-io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
 
