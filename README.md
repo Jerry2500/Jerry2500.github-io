@@ -2,7 +2,7 @@
 
 ### 作业一
 
-[插入排序](
+[插入排序](https://jerry2500.github.io/Jerry2500.github-io/work1.md)
 
 You can use the [editor on GitHub](https://github.com/Jerry2500/Jerry2500.github-io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
 
