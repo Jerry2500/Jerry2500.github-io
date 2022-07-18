@@ -2,7 +2,7 @@
 
 ### 插入排序
 
-```
+```markdown
 #include<iostream>
 using namespace std;
 void insertion_sort(int arr[], int len)
