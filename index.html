@@ -8,7 +8,7 @@
         <meta name="author" content="刘天正">
         <meta name="description" content="">
         <meta name="keywords" content="">
-        <link rel="icon" href="/myblog/themes/particlex/source/images/head_portrait.jpg">
+        <link rel="icon" href="https://cn.bing.com/images/search?view=detailV2&ccid=MYuNKcGj&id=5388EABE8477EEEA97FDB0A70FDC9ECA36AFD010&thid=OIP.MYuNKcGjMzuyR9r0PsudiwAAAA&mediaurl=https%3a%2f%2fwww.yh31.com%2fuploadfile%2fql%2f202104152042540827.jpg&exph=400&expw=400&q=%e5%a4%b4%e5%83%8f&simid=608014533116307074&FORM=IRPRST&ck=F09F85BF205F6C7A3EFE21196647F3CC&selectedIndex=31&qpvt=%e5%a4%b4%e5%83%8f&ajaxhist=0&ajaxserp=0">
         <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
         <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
         
@@ -120,7 +120,7 @@
                     </div>
                     <div id="main">
                         <div id="home-head">
-    <div id="home-background" style="background-image: url(/myblog/themes/particlex/source/images/background.jpg)"></div>
+    <div id="home-background" style="background-image: url(/source/images/background.jpg)"></div>
     
     <div id="home-info" class="home-info" @click="home_click">
         <span class="loop"></span>
@@ -163,17 +163,90 @@
             
             <pre><code>title: Welcome to LTZ&#39;s blog
 </code></pre>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+void insertion_sort(int arr[], int len)
+&#123;
+    int i,j,key;
+    for (i=1;i&lt;len;i++)
+    &#123;
+        key = arr[i];
+        j=i-1;
+        while((j&gt;=0) &amp;&amp; (arr[j]&gt;key)) 
+        &#123;
+            arr[j+1] = arr[j];
+            j--;
+        &#125;
+        arr[j+1] = key;
+    &#125;
+&#125;
+int main()
+&#123;
+    int arr[2000]=&#123;0&#125;;
+    int len=0;
+    cin&gt;&gt;len;//输入数组长度
+    for(int i=0;i&lt;len;i++)
+    cin&gt;&gt;arr[i];
+    insertion_sort(arr, len);
+    for(int i = 0; i &lt; len; i++)
+    cout&lt;&lt;arr[i]&lt;&lt;&quot; &quot;;
+    return 0;
+&#125;
 </code></pre>
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
+<h3 id="二进制转化"><a href="#二进制转化" class="headerlink" title="二进制转化"></a>二进制转化</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;stack&gt;
+using namespace std;
+void printbin(int num)
+&#123;
+    stack&lt;int&gt;st;
+    while(!st.empty())
+    st.pop();
+    while(num&gt;0)
+    &#123;
+        st.push(num%2);
+        num/=2;
+    &#125;
+    while(!st.empty())
+    &#123;
+        cout&lt;&lt;st.top();
+        st.pop();
+    &#125;
+    
+&#125;
+int main()
+&#123;
+    int num;
+    cin&gt;&gt;num;
+    printbin(num);
+    return 0;
+&#125;
 </code></pre>
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
+<h3 id="判断素数"><a href="#判断素数" class="headerlink" title="判断素数"></a>判断素数</h3><pre><code class="bash">#include&lt;iostream&gt;
+#include&lt;cmath&gt;
+using namespace std;
+void judge(int num)
+&#123;
+    bool is=1;
+    for(int i=2;i&lt;=sqrt(num);i++)
+    &#123;
+        if(num%i==0)
+        is=0;
+    &#125;
+    if(is)cout&lt;&lt;num&lt;&lt;&quot;是素数&quot;&lt;&lt;endl;
+    else cout&lt;&lt;num&lt;&lt;&quot;不是素数&quot;&lt;&lt;endl;
+&#125;
+int main()
+&#123;
+    int num;
+    cin&gt;&gt;num;
+    judge(num);
+    return 0;
+&#125;
 </code></pre>
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote <a href="">sites</a></h3><p>$$<br>a3+b3&#x3D;c3<br>$$</p>
 <p>More info: [Deployment](</p>
 
             
@@ -184,49 +257,6 @@
         
     </div>
     <a href="/Jerry2500.github-io/2022/07/27/LTZ/" class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-    <a href="/Jerry2500.github-io/2022/07/25/hello-world/">
-        <h2>
-            Welcome to LTZ's Blog
-        </h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2022/7/25
-        </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-    </div>
-    <a href="/Jerry2500.github-io/2022/07/25/hello-world/" class="go-post">
         阅读全文
     </a>
 </div>
@@ -254,7 +284,7 @@
         <div id="card-div">
     <div class="card-style" style="width: 300px">
         <div class="avatar">
-            <img src="/myblog/themes/particlex/source/images/head_portrait.jpg " alt="avatar">
+            <img src="https://cn.bing.com/images/search?view=detailV2&ccid=MYuNKcGj&id=5388EABE8477EEEA97FDB0A70FDC9ECA36AFD010&thid=OIP.MYuNKcGjMzuyR9r0PsudiwAAAA&mediaurl=https%3a%2f%2fwww.yh31.com%2fuploadfile%2fql%2f202104152042540827.jpg&exph=400&expw=400&q=%e5%a4%b4%e5%83%8f&simid=608014533116307074&FORM=IRPRST&ck=F09F85BF205F6C7A3EFE21196647F3CC&selectedIndex=31&qpvt=%e5%a4%b4%e5%83%8f&ajaxhist=0&ajaxserp=0 " alt="avatar">
         </div>
         <div class="name">
             刘天正
