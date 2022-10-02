@@ -9,8 +9,6 @@ type: about
 ## 插入排序
 
 ```c++
-#include<iostream>
-using namespace std;
 void insertion_sort(int arr[], int len)
 {
     int i,j,key;
@@ -25,18 +23,6 @@ void insertion_sort(int arr[], int len)
         }
         arr[j+1] = key;
     }
-}
-int main()
-{
-	int arr[2000]={0};
-	int len=0;
-	cin>>len;//输入数组长度
-	for(int i=0;i<len;i++)
-	cin>>arr[i];
-    insertion_sort(arr, len);
-    for(int i = 0; i < len; i++)
-    cout<<arr[i]<<" ";
-    return 0;
 }
 ```
 

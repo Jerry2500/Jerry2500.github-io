@@ -8,9 +8,6 @@ type: site
 ## 二进制转化
 
 ```c++
-#include<iostream>
-#include<stack>
-using namespace std;
 void printbin(int num)
 {
 	stack<int>st;
@@ -27,13 +24,6 @@ void printbin(int num)
 		st.pop();
 	}
 	
-}
-int main()
-{
-	int num;
-	cin>>num;
-	printbin(num);
-	return 0;
 }
 ```
 

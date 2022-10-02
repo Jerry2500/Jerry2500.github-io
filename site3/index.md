@@ -8,9 +8,6 @@ type: tags
 ## 判断素数
 
 ```c++
-#include<iostream>
-#include<cmath>
-using namespace std;
 void judge(int num)
 {
 	bool is=1;
@@ -21,13 +18,6 @@ void judge(int num)
 	}
 	if(is)cout<<num<<"是素数"<<endl;
 	else cout<<num<<"不是素数"<<endl;
-}
-int main()
-{
-	int num;
-	cin>>num;
-	judge(num);
-	return 0;
 }
 ```
 
