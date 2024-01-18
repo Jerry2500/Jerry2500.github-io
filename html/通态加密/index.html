@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>同态加密</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Tover">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+                <!--P0: 标题-->
+				<section>
+                    <section>
+                    <h1>联邦学习</h1>
+                    <!--<p style="font-size: 25px">第七届华南师范大学网络安全技术竞赛新生赛</p>-->
+                    <p style="font-weight: bold">分享人：LTZ</p>
+                    </section>
+                    <section>
+                        <h1>百万富翁问题</h1>
+                    </section>
+                    <section>
+                        <div style="text-align:left">
+                    <p>假设Alice和Bob想共同训练一个网络模型，Alice和Bob各自持有一部分训练数据，并且他们不想把自己的数据泄露给对方。那么在训练期间，Alice和Bob需要交互各自训练的梯度数据，并根据双方的梯度数据，共同计算一个对双方都合适的梯度值，用来执行联合梯度下降过程。</p>
+                            </div>
+                    </section>
+                    <section>
+                        <img style="border:0" height=400px src="resources/lianbang.png">
+                    </section>
+
+                </section>
+
+                <!--P1: 介绍-->
+				<section>
+                    <!--Tover-->
+                    <!-- <section>
+                        <h2>关于我</h2>
+                        <div style="display:inline-flex">
+                            <img style="border:0" width="200" height="200" src="./resources/CSOME.png" />
+                            <div style="display:block;text-align:left;margin-left:50px;margin-top:-14px">
+                                <div style="font-weight:bold;display:inline-flex">
+                                    <p>CSOME&ensp;|&ensp;</p>
+                                    <p style="font-size: 38px;margin-top: 25px">陈绍民</p>
+                                </div>
+                                <p style="font-size: 25px;margin-bottom:-10px">计算机学院&emsp;计算机科学与技术</p>
+                                <p style="font-size: 25px;margin-bottom:-10px">Sloth网络安全团队&emsp;Pwn手<S>(Crypto)</S></p>
+                                <p style="font-size: 25px;margin-bottom:-10px">2021HSCTF新生赛&emsp;负责人之一</p>
+                            </div>
+                        </div>
+                    </section> -->
+                    <!--Sloth-->
+                    <section>
+                        <h2>隐私计算</h2>
+                            <img style="border:0" width="1000" height="100" src="./resources/SecretCom.png" />
+
+
+
+                    </section>
+                    <section>
+                        <h2>联邦学习</h2>
+                        <div style="text-align:left;margin-left:50px;font-size:50px">
+                            <p>联邦学习是一种带有隐私保护、安全加密技术的分布式机器学习框架，旨在让分散的各参与方在满足不向其他参与者披露隐私数据的前提下，协作进行机器学习的模型训练。</p>
+                        </div>
+                    </section>
+                    <section>
+                        <img style="border:0" height=500px src="resources/cat.jpg">
+                    </section>
+                    <!--<section>
+                        <h2>关于Sloth</h2>
+                        <div style="text-align:left;margin-left:50px;font-size:25px">
+                            <p>2019年全国高校网安联赛(X-NUCA)决赛三等奖(TOP10)</p>
+                            <p>2020年网鼎杯青龙组华南赛区第一名</p>
+                            <p>2020年全国高校网安联赛(X-NUCA)决赛个人赛第三名</p>
+                            <p>2020年全国高校网安联赛(X-NUCA)决赛三等奖(TOP9)</p>
+                            <p>2020年全国大学生信息安全竞赛创新实践能力赛华南赛区冠军</p>
+                            <p>2020年全国大学生信息安全竞赛创新实践能力赛决赛二等奖</p>
+                            <p>2020年信息安全铁人三项赛二等奖</p>
+                            <p>2021年全国大学生信息安全竞赛创新实践能力赛华南赛区一等奖</p>
+                            <p>2021年红帽杯网络安全大赛亚军</p>
+                            <p>2021年广东省大学生网络安全攻防大赛决赛特等奖、一等奖</p>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>关于Sloth</h2>
+                        <div style="text-align:left;margin-left:50px;font-size:25px">
+                            <p>2022 TQLCTF 全国第五名</p>
+                            <p>2022 MRCTF 全国第九名</p>
+                            <p>2022 羊城杯 三等奖</p>
+                            <p>2022 广东省大学生网络安全攻防大赛决赛一等奖、三等奖</p>
+                            <p>2022 信息安全铁人三项赛三等奖</p>
+                            <p>2023 全国大学生信息安全竞赛创新实践能力赛华南赛区一等奖</p>
+                            <p>2023 全国大学生信息安全竞赛创新实践能力赛决赛三等奖</p>
+                            <p><S>2024年:等着你来创造奇迹</S></p>
+                        </div>
+                    </section>
+                    &lt;!&ndash;Sloth&ndash;&gt;
+                    <section>
+                        <div style="text-align:left;margin-left:30px;font-size:25px">
+                            <p>新生赛中表现突出的同学将会被邀请加入Sloth战队！</p>
+                        </div>
+                    </section>-->
+                </section>
+
+                <!--P2: CTF-->
+				<section>
+                    <section>
+                    <h2>同态加密</h2>
+                        <p>（Homomorphic Encryption）</p>
+                        <div style="text-align:left;margin-left:0px;font-size:40px">
+                            <p style="margin-left: 50px">它允许人们对密文进行特定形式的代数运算得到仍然是加密的结果，将其解密所得到的结果与对明文进行同样的运算结果一样。</p>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>同态</h2>
+                        <img src="./resources/HE.png">
+                        
+                    </section>
+                    <section>
+                        <h2>同态加密</h2>
+                        <img style="border:0" src="./resources/enc.jpeg">
+                    </section>
+                    <section>
+                        <h2>半同态加密</h2>
+                        <img height="600" src="resources/fullHE.png">
+                    </section>
+                    <section>
+                        <h2>全同态加密</h2>
+                        <div style="text-align:left;margin-left:0px;font-size:35px">
+                            <p>1978年，Rivest、Adleman和Dertouzos提出了全同态加密的构想.</p>
+                            <p>满足任意运算同态性的加密算法称为全同态加密。同时满足乘法同态和加法同态特性.</p>
+                        </div>
+
+                    </section>
+                </section>
+
+                <!--P3: HSCTF-->
+                <!-- TODO change -->
+                <section>
+                    <section>
+                        <h3>乘法同态</h3>
+                    </section>
+                    <section>
+                        <h3>RSA</h3>
+                        <img src="resources/rsa.jpg">
+                    </section>
+                    <section>
+                        <img height=300px src="resources/rsa2.png">
+                    </section>
+                    <section>
+                        <h3>选择明文攻击CPA</h3>
+                        <h3>选择密文攻击CCA</h3>
+                    </section>
+                    <section>
+                        <img src="resources/cca1.jpg">
+                    </section>
+                    <section>
+                        <img src="resources/cca2.jpg">
+                    </section>
+                    <section>
+                        <h3>ElGamal</h3>
+                        <img height=500px width=700px src="resources/Ele.jpg">
+                    </section>
+                    <section>
+                        <img height=300px src="resources/e.png">
+                    </section>
+                    <section>
+                        <h3>概率性加密</h3>
+                        <p>加密相同明文，得到的密文是不同的</p>
+                    </section>
+                    <section>
+                        <h3>语义安全</h3>
+                        <h3>不可区分性</h3>
+                    </section>
+                </section>
+
+				<section>
+                    <section>
+                        <h1>Paillier加密</h1>
+                        <p></p>
+                    </section>
+                    <section>
+                            <h3>Alice秘钥产生</h3>
+                           <img height=400px src="resources/enc.png">
+                
+                    </section>
+                    <section>
+                        <h3>入函数</h3>
+                        <img style="border:0" height="480" src="./resources/lambda.jpg" />
+                    </section>
+                    <section>
+                        <img height=200px src="resources/eul.png">
+                    </section>
+                    <section>
+                        <h3>卡米歇尔定理</h3>
+                        <img height=400px src="resources/ka.png">
+                    </section>
+                    <section>
+                        <h3>Alice秘钥产生</h3>
+                        <img height=400px src="resources/enc.png">
+
+                    </section>
+                    <section>
+                        <h3>Bob明文加密</h3>
+                        <img  height="250" src="./resources/bob.png" />
+                    </section>
+                    <section>
+                        <h3>Alice解密</h3>
+                        <img  height="400" src="./resources/ali1.png" />
+                        
+                    </section>
+                    <section>
+
+                        <img  height="300" src="./resources/2.png" />
+
+                    </section>
+                    <section>
+
+                        <div>
+                            <h5>证明</h5>
+                            <img height=300px width=500px src="resources/p1.png">
+                            <img height=200px src="resources/p2.png">
+                            
+                        </div>
+                    </section>
+                </section>
+
+                <!--P4: 实践-->
+				<section>
+                    <section>
+                        <h2>同态性</h2>
+
+                    </section>
+                    <section>
+                        <h3>同态加</h3>
+                        <img height=350px src="./resources/homoadd.png">
+                    </section>
+                    <section>
+                        <h3>同态数乘</h3>
+                        <img height=200px src="resources/homo2.png">
+                    </section>
+                    <!--<section>
+                        <h2>Write up</h2>
+                        <p style="font-size: 35px;">选手在比赛结束后须提交的解题思路</p>
+                        <p style="font-size: 35px;">包含：各题目的解题过程、图片及Flag</p>
+                        <p style="font-size: 35px;">主办方通过对比Write up来检查队伍间的作弊</p>
+                        <p style="font-size: 35px;color:red">未在规定时间内提交Write up的队伍实践赛成绩作废！</p>
+                    </section>
+                    <section>
+                        <h2>时间场地安排</h2>
+                        <p style="font-size: 35px;">比赛时间：10月13日~10月16日</p>
+                        <p style="font-size: 35px;">比赛场地：https://xsctf-2023.xp0int.top</p>
+                        <p style="font-size: 35px;">write up提交：正式比赛结束后24h内</p>
+                    </section>
+                    <section>
+                        <h2>线上热身赛</h2>
+                        <p style="font-size: 35px;">为让选手熟悉比赛，平台将会在以下时间开放(会有热身题！)</p>
+                        <p style="font-size: 35px;">10月7日~10月13日</p>
+                        <p style="font-size: 35px;color:red">热身赛成绩不算入比赛成绩</p>
+                    </section>-->
+                </section>
+
+                <!--P5: 理论-->
+				<section>
+                    <section>
+                        <h1>安全性</h1>
+                    </section>
+                    <section>
+                        <h2>攻击者获取</h2>
+                        <img height=300px src="resources/gongji.png">
+                    </section>
+                    <section>
+                        <h3>语义安全</h3>
+                        <p>选择明文攻击下密文不可区分性(IND-CPA)</p>
+                    </section>
+                    <section>
+                        <h2>合数剩余类判定困难问题</h2>
+                        <img height=250px src="resources/heshu.png">
+               
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>优缺点</h1>
+                    </section>
+                </section>
+
+
+                <!--P6: 奖项-->
+				<!--<section>
+                    <section>
+                        <h2>奖项设置</h2>
+                        <p style="font-size: 35px;margin-bottom:-10px">一等奖：1支队伍</p>
+                        <p style="font-size: 35px;">二等奖：3支队伍</p>
+                        <p style="font-size: 35px;">三等奖：5支队伍</p>
+                        <p style="font-size: 35px;">优胜奖：若干（前50%）</p>
+                    </section>
+                    <section>
+                        <h2>奖项设置</h2>
+                        <p style="font-size: 35px;margin-bottom:-10px">队员全为23级的&ensp;最佳新生队：1支队伍</p>
+                        <p style="font-size: 35px;">队员全为女生的&ensp;最佳女生队：1支队伍</p>
+                    </section>
+                </section>-->
+
+                <!--P7: 奖品-->
+				<!-- <section>
+                    <section>
+                        <h1>奖品</h1>
+                        <p style="font-size: 20px;margin-top: -10px">丰富就对了</p>
+                    </section>
+                    <section>
+                        <h2>优胜奖队伍</h2>
+                        <p style="font-size: 35px;">奖状</p>
+                    </section>
+                    <section>
+                        <h2>三等奖队伍</h2>
+                        <p style="font-size: 35px;">索爱(soaiy)S-35无线蓝牙音箱低音炮</p>
+                        <p style="font-size: 35px;">小米移动电源3 10000毫安18W</p>
+                        <p style="font-size: 35px;">联想无线鼠标轻音鼠标Air Handle</p>
+                    </section>
+                    <section>
+                        <h2>二等奖队伍</h2>
+                        <p style="font-size: 35px;">惠普K10G机械键盘USB有线茶轴</p>
+                        <p style="font-size: 35px;">漫步者LolliPods真无线蓝牙耳机</p>
+                        <p style="font-size: 35px;">小米移动电源3 20000毫安USB-C18W双向快冲版</p>
+                    </section>
+                    <section>
+                        <h2>一等奖队伍</h2>
+                        <p style="font-size: 35px;">ikbc C87 白色有线键盘 红轴</p>
+                        <p style="font-size: 35px;">雷蛇Razer北海巨妖标准版升级款X头戴式耳机</p>
+                        <p style="font-size: 35px;">小米手环5标准版</p>
+                    </section>
+                    <section>
+                        <h2>最佳新生奖队伍</h2>
+                        <p style="font-size: 35px;">小米（MI）小爱同学音箱 Play</p>
+                        <p style="font-size: 35px;">金士顿64G USB U盘</p>
+                        <p style="font-size: 35px;">公牛20W 魔方插座</p>
+                    </section>
+                    <section>
+                        <h2>最佳女生奖队伍</h2>
+                        <p style="font-size: 35px;">小米（MI）小爱同学音箱 Play</p>
+                        <p style="font-size: 35px;">金士顿64G USB U盘</p>
+                        <p style="font-size: 35px;">公牛20W 魔方插座</p>
+                    </section>
+
+                </section> -->
+                
+                <!--P8: 报名-->
+				<section>
+                    <section>
+                        <h3>举个栗子</h3>
+                        <img height=500px src="resources/lizi.png">
+
+                    </section>
+                    <section>
+                        <div>
+                            <img height=600px src="resources/pa.png">
+
+                        </div>
+                    </section>
+                    <section>
+                        <div>
+
+                            <img height=500px src="resources/pa1.png">
+                        </div>
+                    </section>
+                    <section>
+                        <h3>Bob明文加密</h3>
+                        <img  height="250" src="./resources/bob.png" />
+                    </section>
+                    <section>
+                        <h2>writeup</h2>
+                        <img height=500px src="resources/gao.png">
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>全同态加密发展</h2>
+                    </section>
+                    <section>
+                        <img src="resources/full.png">
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>参考</h3>
+                        <div data-markdown style="font-size:34px">
+             ```
+                            1.[Public-Key Cryptosystems Based on Composite Degree Residuosity Classes]
+                            2.[一文了解同态加密（Homomorphic Encryption, HE）_思源湖的鱼的博客-CSDN博客](https://blog.csdn.net/weixin_44604541/article/details/118145637)
+                            3.[RSA选择明密文攻击 | NonupleBroken](https://www.nonuplebroken.com/2018/11/21/RSA选择明密文攻击/#选择明文攻击)
+                            4.[我的隐私计算学习——同态加密-CSDN博客](https://blog.csdn.net/weixin_47695607/article/details/134644160)
+                            5.[同态加密 - 维基百科，自由的百科全书 (wikipedia.org)](https://zh.wikipedia.org/wiki/同态加密)
+                            6.[CINTA]
+                            7.[联邦学习|同态加密：实现数据的“可算不可见”-腾讯云开发者社区-腾讯云 (tencent.com)](https://cloud.tencent.com/developer/article/1857222)
+                            8.[经典同态加密算法Paillier解读 - 原理、实现和应用 - 简书 (jianshu.com)](
+                            9.[隐私计算]https://cloud.tencent.com/developer/article/2017363
+                            10.联邦学习[终于有人把联邦学习讲明白了_hzbooks的博客-CSDN博客](
+
+                            ```
+                        </div>
+                    </section>
+                </section>
+<!--
+                <section>
+                &lt;!&ndash;P9: 时间&ndash;&gt;
+				<section>
+                    <section>
+                        <h2>总结一下</h2>
+                        <div style="text-align:left;margin-left:90px">
+                            <p style="font-size: 32px;">报名截止时间：10月13日</p>
+                            <p style="font-size: 32px;">线上热身赛：10月7日~10月13日</p>
+                            <p style="font-size: 32px;">线上正式赛：10月13日~10月16日</p>
+                            <p style="font-size: 32px;">write up提交：比赛结束后24小时</p>
+                            <p style="font-size: 32px;">线下正式赛：待定~</p>
+                            <p style="font-size: 32px;">颁奖仪式：待定~</p>
+                            <p style="font-size: 32px;">资讯QQ群:&ensp;836696942</p>
+                        </div>
+                    </section>
+                </section>
+
+                &lt;!&ndash;P10: 培训开始&ndash;&gt;
+				<section>
+                    <section>
+                        <h1>培训开始</h1>
+                    </section>
+                    <section>
+                        <h2>题型</h2>
+                        <p style="font-height:bold">WEB&emsp;REVERSE&emsp;PWN</p>
+                        <p style="font-height:bold">CRYPTO&emsp;MISC</p>
+                    </section>
+                </section>
+
+                &lt;!&ndash;P11: WEB&ndash;&gt;
+				<section>
+                    <section>
+                        <h1>WEB</h1>
+                        <p style="font-size: 30px;margin-top:-20px">网络安全</p>
+                    </section>
+                    <section>
+                        <h2>WEB</h2>
+                        <p style="font-size: 35px;">Web 是 CTF 的主要题型，题目涉及到许多常见的 Web 漏洞，如 XSS、文件包含、代码执行、上传漏洞、SQL 注入等。也有一些简单的关于网络基础知识的考察，如返回包、TCP/IP、数据包内容和构造。可以说题目环境比较接近真实环境。</p>
+                    </section>
+                    <section>
+                        <h2>0&ensp;基础知识</h2>
+                        <p style="font-size: 35px;">TCP/IP知识基础</p>
+                        <p style="font-size: 35px;">PHP、Python等编程语言基础</p>
+                        <p style="font-size: 35px;">SQL、数据库基础</p>
+                        <p style="font-size: 35px;">...&ensp;...</p>
+                        <p style="font-size: 35px;"></p>
+                    </section>
+                    <section>
+                        <h2>1&ensp;开发者工具</h2>
+                        <p style="font-size: 35px;">F12,Crtl+Shift+i</p>
+                        <div style="display:inline-flex">
+                            <img style="border:0" height="450" src="./resources/iscnu1.png" />
+                            <div style="margin-left:50px;margin-right:50px"></div>
+                            <img style="border:0" height="450" src="./resources/iscnu2.png" />
+                        </div>
+                    </section>
+                    <section>
+                        <h2>2&ensp;目录发现</h2>
+                        <p style="font-size: 35px;">工具如<a href="https://github.com/WangYihang/SourceLeakHacker">https://github.com/WangYihang/SourceLeakHacker</a></p>
+                        <p style="font-size: 20px;color:red;margin-top:-20px;margin-bottom:-5px">在未授权的情况下对网站进行目录扫描属违法行为(WEB挖得好，牢房蹲得早)</p>
+                        <div style="display:inline-flex">
+                            <img style="border:0" height="450" src="./resources/sl.png" />
+                        </div>
+                    </section>
+                    &lt;!&ndash; <section>
+                        <h2>3&ensp;OWASP Top Ten</h2>
+                        <p style="font-size: 30px;">OWASP 是一个开放的 Web 安全社区，影响着 Web 安全的方方面面</p>
+                        <p style="font-size: 30px;">OWASP 每隔一段时间就会整理更新一次 “Top 10” 的 Web 漏洞排名</p>
+                        <p style="font-size: 35px;">如：Injection&ensp;XSS&ensp;XXE&ensp;...</p>
+                    </section> &ndash;&gt;
+                    <section>
+                        <h2>3.0&ensp;注入(Injection)</h2>
+                        <p style="font-size: 30px;">本应该处理用户输入字符的代码，将用户输入当作了代码来执行</p>
+                        <div data-markdown style="font-size:34px">
+```SQL
+SELECT * FROM users WHERE username = 'admin' and password = '123456'
+```
+```text
+input: admin' &#45;&#45; -
+```
+```SQL
+SELECT * FROM users WHERE username = 'admin' &#45;&#45; -' and password = '123456'
+SELECT * FROM users WHERE username = 'admin'
+```
+                        </div>
+                    </section>
+                    <section>
+                        <h2>3.1&ensp;跨站脚本攻击(XSS)</h2>
+                        <p style="font-size: 30px;">通过插入恶意脚本代码来窃取用户信息</p>
+                        <div data-markdown>
+```HTML
+&lt;p&gt;Hello UserName&lt;/p&gt;
+```
+```text
+UserName: Tover
+```
+```HTML
+&lt;p&gt;Hello Tover&lt;/p&gt;
+```
+```text
+UserName: &lt;script&gt;alert('You are hacked!');&lt;/script&gt;
+```
+```HTML
+&lt;p&gt;Hello &lt;script&gt;alert('You are hacked!');&lt;/script&gt;&lt;/p&gt;
+```
+```text
+UserName: &lt;script&gt;alert(document.cookie)&lt;/script&gt;
+```
+```HTML
+&lt;p&gt;Hello &lt;script&gt;alert(document.cookie)&lt;/script&gt;&lt;/p&gt;
+```
+                        </div>
+                    </section>
+                    &lt;!&ndash; <section>
+                        <h2>3.2&ensp;XML 外部实体(XXE)</h2>
+                        <p style="font-size: 30px;">将用户的外部实体输入代替已定义的实体引用，执行恶意代码</p>
+                        <div data-markdown>
+```HTML
+POST /xxx.ashx HTTP/1.1
+Host: test.com
+Content-Type: text/xml;
+
+&lt;!DOCTYPE foo [ &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt; ]&gt;
+&lt;c&gt;&xxe&lt;/c&gt;
+```
+                        </div>
+                    </section> &ndash;&gt;
+                    <section>
+                        <h2>3.3&ensp;其他(Other)</h2>
+                        <p style="font-size: 30px;"><S>我还能吹几小时...</S></p>
+                    </section>
+                </section>
+
+                &lt;!&ndash;P12: REVERSE&ndash;&gt;
+				<section>
+                    <section>
+                        <h1>REVERSE</h1>
+                        <p style="font-size: 30px;margin-top:-20px">逆向分析</p>
+                        <div style="display:none">
+                            <input style="height:30px" id="fc" value="flag{your_flag_here}"></input>
+                            <button style="height:20px" onclick='checkFlag(document.getElementById("fc").value)'>check</button>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>REVERSE</h2>
+                        <p style="font-size: 35px;">题目涉及到软件逆向、破解技术等，要求有较强的反汇编、反编译功底。主要考查参赛选手的逆向分析能力。</p>
+                        <img style="border:0" src="./resources/ida1.jpg" />
+                    </section>
+                    <section>
+                        <h2>0&ensp;基础知识</h2>
+                        <p style="font-size: 35px;">C/C++语言等语言基础</p>
+                        <p style="font-size: 35px;">一点点的汇编基础</p>
+                        <p style="font-size: 35px;">软件分析能力</p>
+                        <p style="font-size: 35px;">...&ensp;...</p>
+                    </section>
+                    <section>
+                        <h2>1&ensp;常见题型</h2>
+                        <p style="font-size: 35px;">输入特定字符串给Flag...</p>
+                        <p style="font-size: 35px;">输入字符串输出该字符串是否Flag...</p>
+                        <p style="font-size: 35px;"><S>玩游戏通关给Flag？？</S></p>
+                        <p style="font-size: 35px;">反正就是需要把程序执行过程“逆”出来<S>(正常来说)</S></p>
+                    </section>
+                    <section>
+                        <h2>2&ensp;工具</h2>
+                        <p style="font-size: 35px;">IDA pro&ensp;(一个<B>收费</B>的逆向工具)</p>
+                        <img style="border:0" height="450" src="./resources/ida2.jpg" />
+                    </section>
+                    <section>
+                        <h2>2&ensp;工具</h2>
+                        <p style="font-size: 35px;">IDA pro&ensp;<S>(在哪里下载你懂的)</S></p>
+                        <img style="border:0" height="480" src="./resources/ida3.png" />
+                    </section>
+                    <section>
+                        <h2>3&ensp;剩下就是肝了</h2>
+                        <img style="border:0" src="./resources/gan.jpeg" />
+                    </section>
+                </section>
+
+                &lt;!&ndash;P13: PWN&ndash;&gt;
+				<section>
+                    <section>
+                        <h1>PWN</h1>
+                        <p style="font-size: 30px;margin-top:-20px">二进制漏洞利用</p>
+                    </section>
+                    <section>
+                        <h2>PWN</h2>
+                        <p style="font-size: 35px;">Pwn 在黑客俚语中代表着攻破，获取权限，主要考查参赛选手对漏洞的利用能力。</p>
+                        <p style="font-size: 20px;margin-top:-20px"><S>(据说是当初把OWN打错成了PWN...)</S></p>
+                        <img style="border:0" src="./resources/pwn.jpeg" />
+                    </section>
+                    <section>
+                        <h2>0&ensp;基础知识</h2>
+                        <p style="font-size: 35px;">汇编基础</p>
+                        <p style="font-size: 35px;">C/C++语言等语言基础</p>
+                        <p style="font-size: 35px;">程序调试及漏洞发现能力</p>
+                        <p style="font-size: 35px;">一点操作系统基础</p>
+                        <p style="font-size: 35px;">Linux系统</p>
+                        <p style="font-size: 35px;">...&ensp;...</p>
+                    </section>
+                    <section>
+                        <h2>1&ensp;目的</h2>
+                        <p>Get shell !&emsp;Get Flag !</p>
+                        <img style="border:0" src="./resources/shell.png" />
+                    </section>
+                    <section>
+                        <h2>2&ensp;工具</h2>
+                        <p style="font-size: 35px;">IDA&emsp;GDB&emsp;Pwn tools</p>
+                        <p style="font-size: 35px;">...&ensp;...</p>
+                    </section>
+                    <section>
+                        <h2>2.0&ensp;IDA</h2>
+                        <p style="font-size: 35px;">发现漏洞需要先熟悉程序的流程</p>
+                        <p style="font-size: 35px;"><S>前面讲过这里就不细说了</S></p>
+                    </section>
+                    <section>
+                        <h2>2.1&ensp;GDB</h2>
+                        <p style="font-size: 30px;">一个可动态调试程序的工具</p>
+                        <div data-markdown>
+```BASH
+apt install gdb
+```
+                        </div>
+                        <img style="border:0" height="450px" src="./resources/gdb.png" />
+                        <p style="font-size: 35px;"></p>
+                    </section>
+                    <section>
+                        <h2>2.2&ensp;PWN Tools</h2>
+                        <p style="font-size: 35px;">做PWN题目的有用工具(Python)</p>
+                        <p style="font-size: 35px;">要讲会讲很久所以就直接贴<a href="https://zhuanlan.zhihu.com/p/83373740">链接</a>了</p>
+                        <div data-markdown>
+```BASH
+pip install pwntools
+```
+                        </div>
+                    </section>
+                    <section>
+                        <h2>3&ensp;漏洞</h2>
+                        <p style="font-size: 35px;">整数溢出&emsp;栈溢出&emsp;堆溢出</p>
+                        <p style="font-size: 35px;">...&ensp;...</p>
+                    </section>
+                    <section>
+                        <h2>3.0&ensp;整数溢出</h2>
+                        <div data-markdown>
+```C
+int a = 233;
+int array[256] = {0};
+char index = 255;
+printf("%d\n",array[index]);  //233
+```
+                        </div>
+                    </section>
+                    <section>
+                        <h2>3.1&ensp;栈溢出</h2>
+                        <div data-markdown>
+```C
+int array[4] = {1,2,3,4};
+for(int i=0;i&lt100;i++){
+    array[i] = i;
+}
+/*
+*** stack smashing detected ***: &lt;unknown&gt; terminated
+[1]    30807 abort (core dumped)  ./a.out
+*/
+```
+                        </div>
+                    </section>
+                    <section>
+                        <h2>3.1&ensp;栈溢出</h2>
+                        <div data-markdown>
+```text
+
+     low addr-&gt; +&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+
+                |      local     |    存放局部变量的位置
+                |    variables   |    (如上面代码的数组)
+                +&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+   &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
+                |    saved ebp   |   存放前一个函数的ebp
+                +&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+   &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
+                |   ret address  |   存放函数结束后的返回地址
+    high addr-&gt; +&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+
+
+```
+                        </div>
+                    </section>
+                    <section>
+                        <h2>3.1&ensp;栈溢出</h2>
+                        <div data-markdown>
+```text
+
+ low addr-&gt; +&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+      +&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+
+            |      local     |      |       a        |
+            |    variables   |      |      very      |
+            +&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+      |      very      |
+            |    saved ebp   |      |      very      |
+            +&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+      |      long      |
+            |   ret address  |  -&gt;  |      array     |
+high addr-&gt; +&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+      +&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+
+
+```
+                        </div>
+                    </section>
+                    <section>
+                        <h2>3.2&ensp;堆溢出</h2>
+                        <p style="font-size: 30px;"><S>这个我一星期都不知道能不能吹完...</S></p>
+                    </section>
+                    <section>
+                        <h2>4&ensp;福利</h2>
+                        <p style="font-size: 35px;">winesap的视频被搬运到B站了！</p>
+                        <img style="border:0" src="./resources/winesap.png" />
+                    </section>
+                </section>
+
+                &lt;!&ndash;P14: CRYPTO&ndash;&gt;
+				<section>
+                    <section>
+                        <h1>CRYPTO</h1>
+                        <p style="font-size: 30px;margin-top:-20px">密码学</p>
+                    </section>
+                    <section>
+                        <h2>0&ensp;基础知识</h2>
+                        <p style="font-size: 35px;">数序基础</p>
+                        <p style="font-size: 35px;">密码学基础</p>
+                        <p style="font-size: 35px;">...&ensp;...</p>
+                    </section>
+                    <section>
+                        <h2>1&ensp;古典密码</h2>
+                        <p style="font-size: 35px;"><S>以字符为单位的密码</S></p>
+                        <p style="font-size: 30px;">如：凯撒密码、简单替换密码、摩尔斯电码</p>
+                    </section>
+                    <section>
+                        <h2>1.0&ensp;凯撒密码</h2>
+                        <p style="font-size: 35px;">明文中的所有字母都在字母表上向后（或向前）按照一个固定数目进行偏移后被替换成密文</p>
+                        <p style="font-size: 35px;">破解：<a href="https://planetcalc.com/1434/">https://planetcalc.com/1434/</a></p>
+                        <img style="border:0" src="./resources/kai.png" />
+                    </section>
+                    <section>
+                        <h2>1.1&ensp;简单替换密码</h2>
+                        <p style="font-size: 32px;">将明文中所使用的字母替换为另一套字母表，形成新的对应关系</p>
+                        <p style="font-size: 30px;">破解：统计字母出现的频率</p>
+                        <img style="border:0" src="./resources/crypto1.png" />
+                        <div data-markdown>
+```text
+    明文： thisisaflag
+    密文： qtjljlwugwm
+```
+                        </div>
+                    </section>
+                    <section>
+                        <h2>1.2&ensp;摩尔斯电码</h2>
+                        <p style="font-size: 30px;">就是那个发电报用的</p>
+                    </section>
+                    <section>
+                        <h2>2&ensp;现代密码学</h2>
+                        <p style="font-size: 35px;"><S>以二进制比特为单位的密码</S></p>
+                        <p style="font-size: 30px;">如：DES、AES、RSA...</p>
+                    </section>
+                    <section>
+                        <h2>2.0&ensp;对称密钥算法</h2>
+                        <p style="font-size: 35px;">收发双方使用相同的密钥</p>
+                        <p style="font-size: 30px;">如：DES、AES</p>
+                        <img style="border:0" src="./resources/crypto2.png" />
+                    </section>
+                    <section>
+                        <h2>2.1&ensp;公开密钥算法</h2>
+                        <p style="font-size: 35px;">发送方用接收方的公钥加密，接收方用自己的私钥解密</p>
+                        <p style="font-size: 30px;">如：RSA</p>
+                        <img style="border:0" src="./resources/crypto3.png" />
+                    </section>
+                    <section>
+                        <h2>2.2&ensp;RSA</h2>
+                        <p style="font-size: 35px;">Trick:&ensp;<a href="https://github.com/Ganapati/RsaCtfTool">https://github.com/Ganapati/RsaCtfTool</a></p>
+                    </section>
+                    <section>
+                        <h2>3&ensp;Hash</h2>
+                        <p style="font-size: 35px;">将任意长度的消息映射成固定长度消息</p>
+                        <p style="font-size: 30px;"><S>Hash不是加密，但是密码学的重要部分</S></p>
+                    </section>
+                    <section>
+                        <h2>3&ensp;Hash</h2>
+                        <p style="font-size: 35px;">如：MD5、SHA1、SHA3</p>
+                        <p style="font-size: 28px;">Trick:&ensp;<a href="https://www.cmd5.com/">https://www.cmd5.com/</a></p>
+                        <div data-markdown style="font-size: 33px;">
+```sh
+✎ $ md5sum gua.jpeg
+86893c421bbe72705ed5cefa949ada3b  gua.jpeg
+
+✎ $ sha256sum gua.jpeg
+3320eb6e4669dc6462476ad891a507a34c0b74180da07bc8fbdf4516463e81a8  gua.jpeg
+```
+```python
+&gt;&gt;&gt; import hashlib
+&gt;&gt;&gt; hashlib.md5("HSCTF").hexdigest()
+'257760a3a882dd90e070a5b090480f54'
+&gt;&gt;&gt; hashlib.sha256("HSCTF").hexdigest()
+'e35697fd4576c2b8f4c13d2e8301f16437b569a0f3e8b825c01296624bf31a2f'
+```
+                        </div>
+                    </section>
+                </section>
+
+                &lt;!&ndash;P15: MISC&ndash;&gt;
+				<section>
+                    <section>
+                        <h1>MISC</h1>
+                        <p style="font-size: 30px;margin-top:-20px">杂项</p>
+                    </section>
+                    <section>
+                        <h2>MISC</h2>
+                        <p style="font-size: 28px">Misc 即安全杂项，覆盖面比较广，主要考查参赛选手的各种基础综合知识。</p>
+                    </section>
+                    <section>
+                        <h2>0&ensp;基础知识</h2>
+                        <p style="font-size: 35px;">常见隐写术</p>
+                        <p style="font-size: 35px;">流量分析能力</p>
+                        <p style="font-size: 35px;">编码知识</p>
+                        <p style="font-size: 35px;"><S>神奇的脑洞</S></p>
+                        <p style="font-size: 35px;">...&ensp;...</p>
+                    </section>
+                    <section>
+                        <h2>1&ensp;隐写</h2>
+                        <p style="font-size: 35px;">隐写术是一门关于信息隐藏的技巧与科学，所谓信息隐藏指的是不让除预期的接收者之外的任何人知晓信息的传递事件或者信息的内容。</p>
+                    </section>
+                    <section>
+                        <h2>1&ensp;隐写</h2>
+                        <div style="display:inline-flex">
+                            <img style="border:0;margin-left:-120px" width="250" height="250" src="./resources/gua.jpeg" />
+                            <div style="margin-left:100px"></div>
+                            <img style="border:0" src="./resources/miscGua.png" />
+                        </div>
+                    </section>
+                    <section>
+                        <h2>1&ensp;隐写</h2>
+                        <p style="font-size: 35px;">JarvisOJ-美丽的实验室logo</p>
+                        <p style="font-size: 20px;margin-top:-15px"><a href="https://www.jarvisoj.com/challenges">https://www.jarvisoj.com/challenges</a></p>
+                        <p style="font-size: 30px;margin-top:-15px;margin-bottom:-5px">Trick:&ensp;stegsolve</p>
+                        <div style="display:inline-flex">
+                            <img style="border:0;margin-left:-180px" height="400" src="./resources/logo1.png" />
+                            <div style="margin-left:100px"></div>
+                            <img style="border:0" height="400" src="./resources/logo2.png" />
+                        </div>
+                    </section>
+                    <section>
+                        <h2>2&ensp;流量分析</h2>
+                        <p style="font-size: 32px;margin-top=-18px;margin-bottom:-5px">工具：Wireshark！</p>
+                        <img style="border:0" src="./resources/wireshark.png" />
+                    </section>
+                    <section>
+                        <h2>3&ensp;其他</h2>
+                        <p style="font-size: 32px;margin-top=-18px;margin-bottom:-5px"><S>当然不止这些</S></p>
+                    </section>
+                </section>
+
+                &lt;!&ndash;P16: Link&ndash;&gt;
+				<section>
+                    <section>
+                        <h1>分享一些有用的链接</h1>
+                    </section>
+                    <section>
+                        <h2>资料库</h2>
+                        <div style="text-align:left;margin-left:50px;font-size:30px">
+                            <p>CTF Wiki:&ensp;<a href="https://ctf-wiki.github.io/ctf-wiki/">https://ctf-wiki.github.io/ctf-wiki/</a></p>
+                            <p>CTF all in one:&ensp;<a href="https://firmianay.gitbooks.io/ctf-all-in-one/">https://firmianay.gitbooks.io/ctf-all-in-one/</a></p>
+                            <p>HSCTF知识清单:&ensp;<a href="https://ctf.scnu.edu.cn/library/knowledge">https://ctf.scnu.edu.cn/library/knowledge</a></p>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>题库</h2>
+                        <div style="text-align:left;margin-left:50px;font-size:30px">
+                            <p>JarvisOJ:&ensp;<a href="https://www.jarvisoj.com">https://www.jarvisoj.com</a></p>
+                            <p>i春秋:&ensp;<a href="https://www.ichunqiu.com">https://www.ichunqiu.com</a></p>
+                            <p>buuoj:&ensp;<a href="buuoj.cn/">buuoj.cn/</a></p>
+                            <p>PWN党福利：</p>
+                            <p><a href="https://pwnable.kr/">https://pwnable.kr/</a></p>
+                            <p><a href="https://pwnable.tw/">https://pwnable.tw/</a>(较难，非入门)</p>
+                            <p><a href="https://ropemporium.com/">https://ropemporium.com/</a>(ROP从入门到放弃)</p>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>可能会有用的网站</h2>
+                        <div style="font-size:30px">
+                            <p><a href="https://www.google.com/">gxxgle</a>(某个你用不了的百科全书)</p>
+                            <p><a href="https://github.com/">github</a>(全球最大同性交友平台)</p>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>友情链接</h2>
+                        <div style="font-size:45px">
+                            <p><a href="https://0xffff.one/">0xffff.one</a></p>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>当然还有我们的比赛平台</h2>
+                        <div style="font-size:45px">
+                            <p><a href="https://xsctf-2023.xp0int.top/">https://xsctf-2023.xp0int.top/</a></p>
+                        </div>
+                    </section>
+                </section>
+
+                &lt;!&ndash;P17: Q&A&ndash;&gt;
+				<section>
+                    <section>
+                        <h1>Q&amp;A</h1>
+                    </section>
+                    &lt;!&ndash; <section style="text-align:left;margin-left:50px;font-size:30px">
+                        <p>Q：听完培训我都自闭了，一点基础知识都没有，萌新瑟瑟发抖。</p>
+                        <p>A：不怕，你还有十几天时间准备呢！</p>
+                        <p>&emsp;&ensp;比赛的时候是可以<B>使用网络</B>的喔，利用好搜索引擎会帮你很大的忙</p>
+                        <p>&emsp;&ensp;<S>而且新生赛嘛，当然会比培训讲的简单</S></p>
+                    </section>
+                    <section style="text-align:left;margin-left:50px;font-size:30px">
+                        <p>Q：有往届的题目吗？</p>
+                        <p>A：20年的HSCTF已经传Github了</p>
+                        <p>&emsp;&ensp;https://github.com/scnu-sloth/hsctf-2020-freshmen</p>
+                        <p>&emsp;&ensp;想做题的话看下上面推荐的网站会更好喔</p>
+                        <p>&emsp;&ensp;毕竟题目有的是需要平台的环境的<S>github上面只能提供wp，没有环境</S></p>
+                        <p>&emsp;&ensp;平台也会在热身赛时开放部分题目(ps:热身赛不算入总成绩)</p>
+                    </section>
+                    <section style="text-align:left;margin-left:50px;font-size:30px">
+                        <p>Q：有大佬带带我吗？</p>
+                        <p>A：<S>大佬都被禁赛了</S></p>
+                        <p>&emsp;&ensp;Sloth全体成员是禁止参赛的</p>
+                        <p>&emsp;&ensp;努力一下，你也会是大佬的！</p>
+                    </section>
+                    <section style="text-align:left;margin-left:50px;font-size:30px">
+                        <p>Q：有非正式学时吗？</p>
+                        <p>A：<S>没有，下一个</S></p>
+                        <p>&emsp;&ensp;下次会争取一下的^^</p>
+                    </section> &ndash;&gt;
+                </section>-->
+
+                <!--P18: End-->
+				<section>
+                    <section>
+                        <h1>END</h1>
+                        <p style="font-size: 35px;color:#191919">祝你好运</p>
+                        <!--flag{G0od_1uck_2U}-->
+                    </section>
+                </section>
+			</div>
+
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+            // reverse it
+            var checkFlag = function(s){
+                r = ""
+                for(var i=0;i<s.length;i++){
+                    r += s.charCodeAt(i)^7
+                    r += " "
+                }
+                if(r==="97 107 102 96 124 100 55 105 116 55 107 52 88 107 104 62 88 110 48 122 "){
+                    console.log("True")
+                }else{
+                    console.log("False")
+                }
+            }
+
+            document.cookie="aFlag=ZmxhZ3tNeV9jMDBjaTNfYzRufQ==";
+
+		</script>
+
+	</body>
+</html>
